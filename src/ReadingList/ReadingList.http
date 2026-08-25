@@ -1,6 +1,0 @@
-@ReadingList_HostAddress = http://localhost:5139
-
-GET {{ReadingList_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
