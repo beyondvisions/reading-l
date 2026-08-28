@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Contracts\" />
     <Folder Include="Services\" />
     <Folder Include="Validators\" />
   </ItemGroup>
