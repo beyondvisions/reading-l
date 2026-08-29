@@ -1,4 +1,6 @@
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using ReadingList.Data;
 using ReadingList.Filters;
 using ReadingList.Services;
 using Serilog;
@@ -16,6 +18,8 @@ builder.Services.AddControllers(options =>
 builder.Services.AddOpenApi();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddDbContext<ReadingListDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
