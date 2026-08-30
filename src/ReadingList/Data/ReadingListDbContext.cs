@@ -14,25 +14,6 @@ public class ReadingListDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Book>(entity =>
-        {
-            entity.HasKey(b => b.Id);
-
-            entity.Property(b => b.Title)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.Property(b => b.Author)
-                .IsRequired()
-                .HasMaxLength(200);
-
-            entity.Property(b => b.Status)
-                .HasConversion<string>()
-                .HasMaxLength(20)
-                .IsRequired();
-
-            entity.Property(b => b.CreatedAt)
-                .IsRequired();
-        });
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReadingListDbContext).Assembly);
     }
 }
