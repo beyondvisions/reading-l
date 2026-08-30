@@ -1,5 +1,5 @@
 ﻿using ReadingList.Contracts;
-using ReadingList.Entities;
+using ReadingList.Mappings;
 using ReadingList.Repositories;
 
 namespace ReadingList.Services;
@@ -19,28 +19,10 @@ public class BookService : IBookService
     {
         _logger.LogInformation("Creating book with payload: {@Request}", request);
 
-        var book = new Book
-        {
-            Id = Guid.NewGuid(),
-            Title = request.Title,
-            Author = request.Author,
-            PageCount = request.PageCount,
-            Status = request.Status,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        var created = await _repository.AddAsync(book, ct);
-
-        var response = new BookResponse(
-            created.Id,
-            created.Title,
-            created.Author,
-            created.PageCount,
-            created.Status,
-            created.CreatedAt);
+        var created = await _repository.AddAsync(request.ToEntity(), ct);
 
         _logger.LogInformation("Book persisted: {BookId}", created.Id);
 
-        return response;
+        return created.ToResponse();
     }
 }
