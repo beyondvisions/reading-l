@@ -9,7 +9,6 @@ builder.Host.UseSerilog((context, config) =>
 builder.Services.AddApiServices();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistence(builder.Configuration);
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -20,5 +19,6 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseExceptionHandler();
 
 app.Run();

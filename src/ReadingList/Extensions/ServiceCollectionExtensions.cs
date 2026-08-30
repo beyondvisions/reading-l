@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReadingList.Data;
 using ReadingList.Filters;
+using ReadingList.Middleware;
 using ReadingList.Repositories;
 using ReadingList.Services;
 
@@ -37,6 +38,9 @@ public static class ServiceCollectionExtensions
 
         services.AddOpenApi();
         services.AddValidatorsFromAssemblyContaining<Program>();
+
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
 
         return services;
     }
