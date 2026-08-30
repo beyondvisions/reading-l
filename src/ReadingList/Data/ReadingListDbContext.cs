@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ReadingList.Configurations;
 using ReadingList.Entities;
 
 namespace ReadingList.Data;
@@ -14,6 +15,6 @@ public class ReadingListDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ReadingListDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new BookConfiguration());
     }
 }
