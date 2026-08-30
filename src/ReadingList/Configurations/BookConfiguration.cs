@@ -24,6 +24,10 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .IsRequired();
 
         builder.Property(b => b.CreatedAt)
-            .IsRequired();
+    .IsRequired();
+
+        builder.HasIndex(b => new { b.Title, b.Author })
+            .IsUnique();
     }
 }
+    

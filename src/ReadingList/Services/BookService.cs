@@ -1,4 +1,5 @@
 ﻿using ReadingList.Contracts;
+using ReadingList.Exceptions;
 using ReadingList.Mappings;
 using ReadingList.Repositories;
 
@@ -18,6 +19,12 @@ public class BookService : IBookService
     public async Task<BookResponse> CreateAsync(BookRequest request, CancellationToken ct = default)
     {
         _logger.LogInformation("Creating book with payload: {@Request}", request);
+
+        if (await _repository.ExistsAsync(request.Title, request.Author, ct))
+        {
+            throw new ConflictException(
+                $"A book titled '{request.Title}' by {request.Author} already exists.");
+        }
 
         var created = await _repository.AddAsync(request.ToEntity(), ct);
 

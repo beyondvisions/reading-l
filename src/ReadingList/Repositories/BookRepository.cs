@@ -1,4 +1,5 @@
-﻿using ReadingList.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ReadingList.Data;
 using ReadingList.Entities;
 
 namespace ReadingList.Repositories;
@@ -17,5 +18,11 @@ public class BookRepository : IBookRepository
         await _context.Books.AddAsync(book, ct);
         await _context.SaveChangesAsync(ct);
         return book;
+    }
+
+    public Task<bool> ExistsAsync(string title, string author, CancellationToken ct = default)
+    {
+        return _context.Books
+            .AnyAsync(b => b.Title == title && b.Author == author, ct);
     }
 }
