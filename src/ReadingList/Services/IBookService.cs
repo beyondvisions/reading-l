@@ -5,4 +5,6 @@ namespace ReadingList.Services;
 public interface IBookService
 {
     Task<BookResponse> CreateAsync(BookRequest request, CancellationToken ct = default);
+
+    Task<BookResponse> GetByIdAsync(Guid id, CancellationToken ct = default);
 }
