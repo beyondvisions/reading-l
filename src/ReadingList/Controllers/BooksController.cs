@@ -31,12 +31,6 @@ public class BooksController : ControllerBase
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
         var book = await _bookService.GetByIdAsync(id, ct);
-
-        if (book is null)
-        {
-            return NotFound();
-        }
-
         return Ok(book);
     }
 }
