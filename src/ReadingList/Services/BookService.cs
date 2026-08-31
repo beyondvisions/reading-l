@@ -32,4 +32,16 @@ public class BookService : IBookService
 
         return created.ToResponse();
     }
+
+    public async Task<BookResponse> GetByIdAsync(Guid id, CancellationToken ct = default)
+    {
+        var book = await _repository.GetByIdAsync(id, ct);
+
+        if (book is null)
+        {
+            throw new NotFoundException($"Book with id {id} was not found.");
+        }
+
+        return book.ToResponse();
+    }
 }

@@ -25,4 +25,11 @@ public class BookRepository : IBookRepository
         return _context.Books
             .AnyAsync(b => b.Title == title && b.Author == author, ct);
     }
+
+    public Task<Book?> GetByIdAsync(Guid id, CancellationToken ct = default)
+    {
+        return _context.Books
+            .AsNoTracking()
+            .FirstOrDefaultAsync(b => b.Id == id, ct);
+    }
 }
